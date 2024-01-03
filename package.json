@@ -1,7 +1,8 @@
 {
-    "name": "@Ahao/pdf-merge",
-    "version": "1.0.1",
+    "name": "@ahao/pdf-merge",
+    "version": "1.0.1-alpha-0",
     "description": "合并多个pdf文件到一个文件",
+    "author": "Ahao",
     "main": "dist/main.bundle.js",
     "files": [
         "dist"
@@ -9,7 +10,19 @@
     "scripts": {
         "build": "webpack"
     },
-    "author": "Ahao",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:wanghao0730/pdf-merge.git"
+    },
+    "keywords": [
+        "pdf",
+        "merge",
+        "合并pdf文件"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
     "devDependencies": {
         "@babel/core": "^7.21.3",
         "@babel/preset-env": "^7.20.2",
