@@ -1,6 +1,7 @@
-import { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api";
+import { PDFDocumentProxy } from "pdfjs-dist/types/src/display/api"
+import { jsPDF } from "jspdf"
+import { PdfController } from "./pdfRender"
 
-import { PdfController } from "./pdf";
 
 class PdfView extends HTMLElement {
     public controller?: PdfController;
@@ -11,8 +12,10 @@ class PdfView extends HTMLElement {
         super();
 
         const shadow = this.attachShadow({ mode: "open" });
-
-        this.wrapper = document.createElement("div");
+        
+        const element = document.createElement("div")
+        element.setAttribute("class", "canvas-container")
+        this.wrapper = element
 
         shadow.appendChild(this.wrapper);
 
@@ -21,7 +24,6 @@ class PdfView extends HTMLElement {
             (e) => this.onError(e),
             (pdf) => this.onSuccess(pdf)
         );
-
         window.addEventListener("resize", this.sizeObserver.bind(this));
     }
 
@@ -55,20 +57,21 @@ class PdfView extends HTMLElement {
     }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-        this.controller?.init(newValue);
+        if (Array.isArray(newValue)) {
+            this.controller?.init(newValue)
+        }
+        else {
+            this.controller?.init(JSON.parse(newValue))
+        }
     }
 
     downLoad() {
-        if (this.controller?.pdfBlob) {
-            const a = document.createElement("a");
-            const url = window.URL.createObjectURL(this.controller?.pdfBlob);
-            a.href = url;
+		this.controller?.download()
+    }
 
-            a.download =
-                this.getAttribute("fileName") ?? "请设置标签的fileName";
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
+    //preview预览操作
+    previewPdfFile() {
+        
     }
 }
 

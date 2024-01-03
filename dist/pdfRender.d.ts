@@ -4,18 +4,18 @@ export declare class PdfController {
     private wrapper;
     private onError;
     private onSuccess;
-    private pdfBuffer?;
     pdfBlob?: Blob;
-    private pdf?;
+    private pdfPromiseArray?;
+    private pdfPagePromiseArray?;
+    private pdfPageProxy?;
     private url?;
-    private pages?;
     private preFrame?;
     constructor(wrapper: HTMLElement, onError: (e: any) => void, onSuccess: (pdf: PDFDocumentProxy) => void);
-    init(url: string): Promise<void>;
-    fetchData(): Promise<void>;
+    init(url: Array<string>): Promise<void>;
     fetchPdf(): Promise<void>;
     initPages(): Promise<void>;
     schedular(frameId?: number): Promise<void>;
     renderPdf(num?: number): Promise<void>;
+    download(): void;
     clear(): void;
 }

@@ -1,25 +1,19 @@
 {
-    "name": "@yangxuy/pdf-reader",
-    "version": "1.0.7-alpha-0",
-    "description": "a pdf reader can use for react or vue",
+    "name": "@Ahao/pdf-merge",
+    "version": "1.0.1",
+    "description": "合并多个pdf文件到一个文件",
     "main": "dist/main.bundle.js",
     "files": [
         "dist"
     ],
     "scripts": {
-        "test": "vitest",
-        "build": "rm -rf dist && webpack"
+        "build": "webpack"
     },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:yangxuy/pdf-reader.git"
-    },
-    "homepage": "https://www.jianshu.com/p/008bea4eecf9",
-    "author": "yangxuy",
-    "license": "ISC",
+    "author": "Ahao",
     "devDependencies": {
         "@babel/core": "^7.21.3",
         "@babel/preset-env": "^7.20.2",
+        "jspdf": "^2.5.1",
         "pdfjs-dist": "3.4.120",
         "ts-loader": "^9.4.2",
         "typescript": "^5.0.2",

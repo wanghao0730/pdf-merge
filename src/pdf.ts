@@ -26,6 +26,7 @@ export class PdfController {
     }
 
     async init(url: string) {
+        console.log('init url', url)
         this.url = url;
         await this.fetchData();
     }
@@ -54,55 +55,55 @@ export class PdfController {
             .getDocument(pdfDocConfig)
             .promise.then(async (pdf) => {
                 this.pdf = pdf;
-                this.onSuccess(pdf);
-                await this.initPages();
+                this.onSuccess(pdf)
+                await this.initPages()
             })
             .catch((e) => {
-                this.onError(e);
+                this.onError(e)
             });
     }
 
     async initPages() {
-        const numbers = this.pdf!.numPages;
+        const numbers = this.pdf!.numPages
 
         const promises = [...Array(numbers)].map((_, index) => {
-            return this.pdf?.getPage(index + 1);
-        });
+            return this.pdf?.getPage(index + 1)
+        })
 
         await Promise.all(promises)
             .then((pages: any[]) => {
-                this.pages = pages;
-                this.renderPdf();
+                this.pages = pages
+                this.renderPdf()
             })
             .catch((err) => {
-                this.onError(err);
+                this.onError(err)
             });
     }
 
     async schedular(frameId?: number) {
         if (this.preFrame === undefined) {
-            this.preFrame = frameId;
-            await this.renderPdf();
+            this.preFrame = frameId
+            await this.renderPdf()
         } else {
-            this.preFrame = frameId;
+            this.preFrame = frameId
         }
     }
 
     async renderPdf(num = 0) {
         while (this.pdf && this.pages && num < this.pdf.numPages) {
-            console.log(this.pages);
-            const page = this.pages[num];
+            console.log(this.pages)
+            const page = this.pages[num]
 
-            let viewport = page.getViewport({ scale: 1 });
+            let viewport = page.getViewport({ scale: 1 })
 
-            const size = this.wrapper.getBoundingClientRect();
-            const rate = size.width / viewport.width;
+            const size = this.wrapper.getBoundingClientRect()
+            const rate = size.width / viewport.width
 
-            let canvas = document.createElement("canvas");
-            let context = canvas.getContext("2d");
+            let canvas = document.createElement("canvas")
+            let context = canvas.getContext("2d")
 
-            canvas.width = Math.floor(viewport.width * rate);
-            canvas.height = Math.floor(viewport.height * rate);
+            canvas.width = Math.floor(viewport.width * rate)
+            canvas.height = Math.floor(viewport.height * rate)
 
             let renderContext = {
                 transform: [rate, 0, 0, rate, 0, 0],
@@ -110,13 +111,13 @@ export class PdfController {
                 viewport: viewport,
             };
 
-            await page.render(renderContext).promise;
+            await page.render(renderContext).promise
 
             if (num === 0) {
-                this.clear();
+                this.clear()
             }
 
-            this.wrapper.appendChild(canvas);
+            this.wrapper.appendChild(canvas)
 
             num++;
         }
