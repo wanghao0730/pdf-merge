@@ -36,4 +36,6 @@ export default defineComponent({
   },
 })
 </script>
+
+代码灵感来源:https://github.com/yangxuy/pdf-reader
 ```
