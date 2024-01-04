@@ -16,6 +16,6 @@ export declare class PdfController {
     initPages(): Promise<void>;
     schedular(frameId?: number): Promise<void>;
     renderPdf(num?: number): Promise<void>;
-    download(): void;
+    download(): Promise<void>;
     clear(): void;
 }

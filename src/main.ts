@@ -57,12 +57,7 @@ class PdfView extends HTMLElement {
     }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-        if (Array.isArray(newValue)) {
-            this.controller?.init(newValue)
-        }
-        else {
-            this.controller?.init(JSON.parse(newValue))
-        }
+        this.controller?.init(newValue.split(','))
     }
 
     downLoad() {

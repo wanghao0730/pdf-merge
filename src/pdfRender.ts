@@ -1,6 +1,5 @@
 import * as pdfjsLib from "pdfjs-dist"
 import { jsPDF } from "jspdf"
-
 import "pdfjs-dist/legacy/build/pdf.worker.entry.js"
 
 import {
@@ -33,14 +32,6 @@ export class PdfController {
     }
 
     async fetchPdf() {
-        console.log('fetch', this.url)
-        // const pdfDocConfig: Record<string, any>[] = this.url?.map(item => ({
-        //     cMapPacked: true,
-        //     rangeChunkSize: 65536,
-        //     pdfBug: false,
-        //     useSystemFonts: true,
-        //     url: item,
-        // })) || []
         const pdfArray = this.url?.map(url => {
             return pdfjsLib.getDocument(url).promise
         }) || []
@@ -110,19 +101,19 @@ export class PdfController {
     }
 
     //下载操作
-    download() {
+    async download() {
         const doc = new jsPDF('p', 'pt', 'a4', false)
+       
         if (this.wrapper) {
-            
             this.wrapper.querySelectorAll('canvas').forEach((canvas, index) => {
                 if (index > 0) {
                     doc.addPage() // 添加新的页面
                 }
                  // 将每个canvas的内容绘制到pdf中
-                 const imgData = canvas.toDataURL('image/png');
+                 const imgData = canvas.toDataURL('image/png')
                  doc.addImage(imgData, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight())
             })
-            
+
             const blob = doc.output('blob')
             const url  = URL.createObjectURL(blob)
             const a = document.createElement('a')

@@ -9,12 +9,11 @@
         <script src="../dist/main.bundle.js"></script>
     </head>
     <body>
-        <pdf-view url='["https://pdf-lib.js.org/assets/with_update_sections.pdf","https://pdf-lib.js.org/assets/with_update_sections.pdf","https://pdf-lib.js.org/assets/with_update_sections.pdf","https://pdf-lib.js.org/assets/dod_character.pdf"]' fileName="1"></pdf-view>
+        <pdf-view url='https://pdf-lib.js.org/assets/with_update_sections.pdf,https://pdf-lib.js.org/assets/with_update_sections.pdf,https://pdf-lib.js.org/assets/with_update_sections.pdf,https://pdf-lib.js.org/assets/dod_character.pdf' fileName="1"></pdf-view>
         <button onclick="handlerDownload()">下载pdf1</button>
         <script>
             const pdfView = document.querySelector("pdf-view");
             const video = document.querySelector("video");
-            
             function handlerDownload() {
                 pdfView.downLoad()
             }
